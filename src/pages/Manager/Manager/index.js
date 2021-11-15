@@ -115,7 +115,7 @@ export default function Manager() {
         rows={data}
         disableSelectionOnClick
         columns={columns}
-        pageSize={6}
+        pageSize={7}
         checkboxSelection
         className="muiTable"
       />

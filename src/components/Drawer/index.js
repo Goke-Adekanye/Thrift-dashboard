@@ -309,9 +309,9 @@ function ResponsiveDrawer(props) {
           <Typography variant="h6" className={classes.logoLg}>
             SESA DIGITAL
           </Typography>
-          <Typography variant="h6" className={classes.logoSm}>
+          {/* <Typography variant="h6" className={classes.logoSm}>
             SESA
-          </Typography>
+          </Typography> */}
           <div className={classes.icons}>
             <Badge badgeContent={2} color="secondary" className={classes.badge}>
               <Notifications />

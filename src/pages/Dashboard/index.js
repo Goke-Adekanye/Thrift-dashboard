@@ -5,7 +5,7 @@ import TableWidget from "../../components/tableWidget";
 import Chart from "../../components/chart";
 import { userData } from "../../dummyData";
 import PageTitle from "../../components/pageTitle";
-import { Grid } from "@material-ui/core";
+// import { Grid } from "@material-ui/core";
 
 export default function Dashboard() {
   return (
@@ -18,11 +18,7 @@ export default function Dashboard() {
         grid
         dataKey="Active User"
       />
-      <Grid container spacing={1} className="widget">
-        <Grid item className="tablewidget_container">
-          <TableWidget />
-        </Grid>
-      </Grid>
+      <TableWidget />
     </div>
   );
 }

@@ -41,7 +41,7 @@ function App() {
           sx={{
             marginTop: "4rem",
             flexGrow: 1,
-            p: 3,
+            p: 1,
             width: { sm: `calc(100% - ${drawerWidth}px)` },
           }}
         >
