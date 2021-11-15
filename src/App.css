@@ -1,38 +1,172 @@
-.App {
-  text-align: center;
+.app {
+  padding: 1rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media (max-width: 1100px) {
+  .app {
+      padding: .5rem;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+@media (max-width: 800px) {
+  .app {
+      padding: .2rem;
+  }
+}
+
+/* LIST PAGE*/
+.list {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.userList{
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.muiTable {
+  box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+  border-radius: 16px !important;
+}
+.userListUser {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+}
+.userListImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+.userListName {
+  font-weight: 600;
+  line-height: 1.57143;
+  font-size: 0.875rem;
+  font-family: "Public Sans", sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.MuiTooltip-popper {
+  margin-top: 60px;
+}
+.widgetLgButton {
+  padding: 5px 8px;
+  border: none;
+  border-radius: 10px;
+}
+.widgetLgButton.inactive{
+    background-color: #fff0f1;
+    color: #d95087;
+}
+.widgetLgButton.active{
+  background-color: #e5faf2;
+  color: #3bb077;
+}
+.userListEdit{
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    background-color: #3bb077;
+    color: white;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.iconSpan {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 2px 2px;
+  background-color:  #000;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.userListIcon{
+    color: #FFF;
+}
+.totalEstatesDiv {
+  margin: auto;
+}
+/* END OF LIST PAGE */
+
+/* PROFILE PAGE  */
+.profile_section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+  border-radius: 16px;
+  box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+  
+}
+.profile_container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
 
-.App-link {
-  color: #61dafb;
+.image_container {
+  width: 30%;
+  margin-right: 3rem;
+}
+.image_container img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+
+}
+.timeline_container {
+  width: 40%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 960px) {
+  .image_container {
+      width: 40%;
+      margin-right: 2rem;
   }
-  to {
-    transform: rotate(360deg);
+  .timeline_container {
+      width: 50%;
   }
 }
+@media (max-width: 780px) {
+  .profile_container {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+  }
+  .image_container {
+      width: 100%;
+      margin-right: 0;
+      margin-bottom: 1.5rem;
+  }
+  .timeline_container {
+      width: 100%;
+  }
+}
+
+/* TAB SECTION  */
+.tabs_container {
+  max-width: 900px;
+  margin: 2rem auto;
+  border-radius: 10px;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
+.permission_container,
+.estate_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20vh;
+}
+
+/* END OF TAB SECTION  */
+
+.profile-button {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+/* END OF PROFILE PAGE  */
