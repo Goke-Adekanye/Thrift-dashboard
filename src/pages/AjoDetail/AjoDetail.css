@@ -1,0 +1,123 @@
+.details-section {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.detail-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-div {
+    width: 60%;
+}
+.right-div {
+    width: 30%;
+}
+
+.border-container {
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid #e2e8f0;
+    border-bottom-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+.mini {
+    margin-bottom: 1rem;
+    width: 45%;
+}
+.sub {
+    display: flex;
+    flex-direction: column;
+}
+.sub-ptitle {
+    text-transform: uppercase;
+    white-space: pre-wrap;
+    font-size: .75rem;
+    color: #a0aec0;
+}
+.tx {
+    text-transform: capitalize;
+    margin-top: 1rem;
+    color: #2d3748;
+}
+
+.flex-c {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.h2-header {
+    text-transform: uppercase;
+    font-size: .625rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 0;
+}
+.span-details {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #2295f2;
+}
+.fw-light {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.bottom-div {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.bottom-btn {
+    width: 40%;
+    height: 50px;
+    text-align: center;
+    font-weight: 400;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    cursor: pointer;
+    background-color: white;
+    color: #0d60d8;
+    border: 1px solid #083e9e;
+    border-bottom-right-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+@media (max-width: 640px)
+ {
+    .detail-container {
+        flex-direction: column;
+    }
+    .left-div {
+        width: 100%;
+    }
+    .right-div {
+        margin-top: 2rem;
+        width: 100%;
+    }
+    .mini {
+        width: 48%;
+    }
+    .bottom-div {
+        margin-top: 1rem;
+    }
+    .bottom-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 300px)
+ {
+    .mini {
+        width: 100%;
+    }
+}

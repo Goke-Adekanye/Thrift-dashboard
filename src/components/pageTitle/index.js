@@ -6,7 +6,9 @@ import "./pagetitle.css";
 export default function PageTitle({ text, buttonText, link }) {
   return (
     <div className="userListTop">
-      <Typography variant="h4">{text}</Typography>
+      <Typography variant="h4" className="text">
+        {text}
+      </Typography>
       {buttonText && (
         <Link to={link}>
           <MuiButton size="small" className="muiButton">

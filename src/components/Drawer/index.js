@@ -14,16 +14,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import {
-  Menu,
-  Notifications,
-  Security,
-  PeopleOutline,
-  PermIdentity,
-  Add,
-  CallToAction,
-  LineStyle,
-} from "@material-ui/icons";
+import { Menu, Notifications, Home, PersonAdd, Add } from "@material-ui/icons";
 import Toolbar from "@mui/material/Toolbar";
 import { Avatar, Badge, makeStyles } from "@material-ui/core";
 import { Typography } from "@mui/material";
@@ -38,11 +29,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#FFF",
   },
   logoLg: {
-    display: "none",
-    fontWeight: 600,
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
+    fontWeight: 700,
   },
   logoSm: {
     display: "block",
@@ -59,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   active: {
-    color: "#000 !important",
+    color: "#062863 !important",
     position: "relative",
     backgroundColor: "#f8f9fa !important",
 
@@ -72,9 +59,10 @@ const useStyles = makeStyles((theme) => ({
       position: "absolute",
       borderTopLeftRadius: 4,
       borderBottomLeftRadius: 4,
-      backgroundColor: "#212529",
+      backgroundColor: "#062863",
     },
   },
+
   itemGroup: {
     display: "flex",
     flexDirection: "column",
@@ -88,10 +76,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer(props) {
-  const [toggleShow, setToggleShow] = useState(false);
-  const [toggleShow2, setToggleShow2] = useState(false);
-  const [toggleShow3, setToggleShow3] = useState(false);
-
   const pathname = props?.location?.pathname;
   const classes = useStyles();
 
@@ -110,175 +94,64 @@ function ResponsiveDrawer(props) {
         <Link to="/">
           <ListItem button className={pathname === "/" && classes.active}>
             <ListItemIcon>
-              <LineStyle />
+              <Home className={pathname === "/" && classes.active} />
             </ListItemIcon>
             <ListItemText
               primary={
-                <Typography type="h6" style={{ fontSize: 13 }}>
-                  Dashboards
+                <Typography
+                  type="h6"
+                  style={{ fontSize: "1rem", fontWeight: 600 }}
+                >
+                  Home
                 </Typography>
               }
             />
           </ListItem>
         </Link>
 
-        <div className={classes.itemGroup}>
-          <ListItem button onClick={() => setToggleShow(!toggleShow)}>
+        <Link to="/ajo/join">
+          <ListItem
+            button
+            className={pathname === "/ajo/join" && classes.active}
+          >
             <ListItemIcon>
-              <PermIdentity />
+              <PersonAdd
+                className={pathname === "/ajo/join" && classes.active}
+              />
             </ListItemIcon>
             <ListItemText
               primary={
-                <Typography type="h6" style={{ fontSize: 13 }}>
-                  Admins
+                <Typography
+                  type="h6"
+                  style={{ fontSize: "1rem", fontWeight: 600 }}
+                >
+                  Join Ajo
                 </Typography>
               }
             />
           </ListItem>
+        </Link>
 
-          <div className={`${classes.group2} ${toggleShow && classes.show}`}>
-            <Link to="/admin/admins">
-              <ListItem
-                button
-                className={pathname === "/admin/admins" && classes.active}
-              >
-                <ListItemIcon>
-                  <CallToAction />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Typography type="h6" style={{ fontSize: 13 }}>
-                      View Admins
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            </Link>
-            <Link to="/admin/admins/add">
-              <ListItem
-                button
-                className={pathname === "/admin/admins/add" && classes.active}
-              >
-                <ListItemIcon>
-                  <Add />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Typography type="h6" style={{ fontSize: 13 }}>
-                      Add Admins
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            </Link>
-          </div>
-        </div>
-
-        <div className={classes.itemGroup}>
-          <ListItem button onClick={() => setToggleShow2(!toggleShow2)}>
+        <Link to="/ajo/create">
+          <ListItem
+            button
+            className={pathname === "/ajo/create" && classes.active}
+          >
             <ListItemIcon>
-              <PeopleOutline />
+              <Add className={pathname === "/ajo/create" && classes.active} />
             </ListItemIcon>
             <ListItemText
               primary={
-                <Typography type="h6" style={{ fontSize: 13 }}>
-                  Estate Managers
+                <Typography
+                  type="h6"
+                  style={{ fontSize: "1rem", fontWeight: 600 }}
+                >
+                  Create Ajo
                 </Typography>
               }
             />
           </ListItem>
-
-          <div className={`${classes.group2} ${toggleShow2 && classes.show}`}>
-            <Link to="/admin/managers">
-              <ListItem
-                button
-                className={pathname === "/admin/managers" && classes.active}
-              >
-                <ListItemIcon>
-                  <CallToAction />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Typography type="h6" style={{ fontSize: 13 }}>
-                      View Managers
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            </Link>
-            <Link to="/admin/managers/add">
-              <ListItem
-                button
-                className={pathname === "/admin/managers/add" && classes.active}
-              >
-                <ListItemIcon>
-                  <Add />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Typography type="h6" style={{ fontSize: 13 }}>
-                      Add Managers
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            </Link>
-          </div>
-        </div>
-
-        <div className={classes.itemGroup}>
-          <ListItem button onClick={() => setToggleShow3(!toggleShow3)}>
-            <ListItemIcon>
-              <Security />
-            </ListItemIcon>
-            <ListItemText
-              primary={
-                <Typography type="h6" style={{ fontSize: 13 }}>
-                  Security Company
-                </Typography>
-              }
-            />
-          </ListItem>
-
-          <div className={`${classes.group2} ${toggleShow3 && classes.show}`}>
-            <Link to="/admin/companies">
-              <ListItem
-                button
-                className={pathname === "/admin/companies" && classes.active}
-              >
-                <ListItemIcon>
-                  <CallToAction />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Typography type="h6" style={{ fontSize: 13 }}>
-                      View Security Companies
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            </Link>
-            <Link to="/admin/companies/add">
-              <ListItem
-                button
-                className={
-                  pathname === "/admin/companies/add" && classes.active
-                }
-              >
-                <ListItemIcon>
-                  <Add />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Typography type="h6" style={{ fontSize: 13 }}>
-                      Add Security Companies
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            </Link>
-          </div>
-        </div>
+        </Link>
       </List>
     </div>
   );
@@ -307,11 +180,8 @@ function ResponsiveDrawer(props) {
             <Menu />
           </IconButton>
           <Typography variant="h6" className={classes.logoLg}>
-            SESA DIGITAL
+            AJO
           </Typography>
-          {/* <Typography variant="h6" className={classes.logoSm}>
-            SESA
-          </Typography> */}
           <div className={classes.icons}>
             <Badge badgeContent={2} color="secondary" className={classes.badge}>
               <Notifications />
@@ -342,6 +212,8 @@ function ResponsiveDrawer(props) {
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+              backgroundColor: "#062863 !important",
+              color: "#FFF !important",
             },
           }}
         >
@@ -351,9 +223,12 @@ function ResponsiveDrawer(props) {
           variant="permanent"
           sx={{
             display: { xs: "none", sm: "block" },
+
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
+              backgroundColor: "#062863 !important",
+              color: "#FFF !important",
             },
           }}
           open

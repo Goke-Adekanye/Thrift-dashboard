@@ -1,24 +1,20 @@
-import React from "react";
-import "./dashboard.css";
-import PortfolioRow from "../../components/portfolioRow";
-import TableWidget from "../../components/tableWidget";
-import Chart from "../../components/chart";
-import { userData } from "../../dummyData";
-import PageTitle from "../../components/pageTitle";
-// import { Grid } from "@material-ui/core";
+import React from 'react';
+
+import PageTitle from '../../components/pageTitle';
+import PortfolioRow from './dashboardPortfolio';
+import { Chart } from './dashboardChart';
+import DashboardTabs from './dashboardTabs';
+import { Data, userData } from './dummyData';
 
 export default function Dashboard() {
   return (
-    <div className="home-section">
-      <PageTitle text="Hi, Welcome.." />
+    <div className='main-container flow'>
+      <PageTitle text='Welcome,' />
       <PortfolioRow />
-      <Chart
-        data={userData}
-        title="User Analytics"
-        grid
-        dataKey="Active User"
-      />
-      <TableWidget />
+      <Chart data={userData} title='Transaction Analytics' grid dataKey='Transaction' />
+      <div className='padding-2 border-radius-1 box-shadow-1'>
+        <DashboardTabs data={Data} />
+      </div>
     </div>
   );
 }

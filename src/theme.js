@@ -31,7 +31,7 @@ export const theme = createTheme({
     padding: 0,
   },
   form: {
-    padding: "2rem",
+    padding: "1rem",
   },
   label: {
     display: "flex",
@@ -43,6 +43,8 @@ export const theme = createTheme({
     marginRight: "5px",
   },
   root: {
+    marginBottom: "2rem",
+
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: "#555",
     },
