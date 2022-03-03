@@ -13,6 +13,7 @@
   --clr-deep-blue: #062863;
   --clr-light-blue: #2a7ade;
   --clr-fade-blue: #ebf1fe;
+  --clr-deep-red: rgb(243, 62, 62);
   --clr-light-red: #d95087;
   --clr-fade-red: #fff0f1;
   
@@ -237,6 +238,13 @@ select {
   .mui-btn {
     padding: 5px 15px !important;
     color: var(--clr-white) !important;
+  }
+  .mui-btn.proceed {
+    margin-right: 15px !important;
+    background-color: var(--clr-deep-blue) !important ;
+  }
+  .mui-btn.cancel {
+    background-color: var(--clr-deep-red) !important ;
   }
 
   .icon-span {

@@ -1,15 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 //MUI
-import {
-  TextField,
-  Grid,
-  makeStyles,
-  Button as MuiButton,
-  Snackbar,
-} from "@material-ui/core";
-import { Alert } from "@mui/material";
-import { Close, Check, AttachMoney } from "@material-ui/icons";
+import { TextField, Grid, makeStyles, Button as MuiButton, Snackbar } from '@material-ui/core';
+import { Alert } from '@mui/material';
+import { Close, Check, AttachMoney } from '@material-ui/icons';
+import FormField from '../formfields/Formfield';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -22,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PaymentForm({
   paymentError,
-  payFormOpen,
   setPayFormOpen,
   wallet,
   setWallet,
@@ -34,97 +28,63 @@ export default function PaymentForm({
   //FORM
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
     setOpenAlert(false);
   };
 
   return (
-    <div className={`apply-container ${payFormOpen && "show"}`}>
-      <div className="form-container">
-        <div className="close-icon-container">
-          <Close className="close-icon" onClick={() => setPayFormOpen(false)} />
+    <div className='shade-container'>
+      <div className='inner flex flex-col flow flow--space-small'>
+        <div className='close-icon__container flex'>
+          <Close className='close-icon cursor-pointer' onClick={() => setPayFormOpen(false)} />
         </div>
 
-        <form name="contact" method="POST">
+        <form name='contact' method='POST' className='flex flex-col'>
           <Grid container className={classes.form}>
             <Grid item xs={12}>
               <TextField
-                fullWidth
-                id="outlined-basic"
-                variant="outlined"
-                type="text"
-                name="amount"
-                label="Amount"
+                {...FormField.amount}
                 value={ajoAmount}
                 helperText={
                   paymentError &&
-                  "You have insufficient funds for this transaction, kindly load wallet."
+                  'You have insufficient funds for this transaction, kindly load wallet.'
                 }
                 error={paymentError ? true : false}
                 className={classes.root}
-                focused
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                fullWidth
-                id="outlined-basic"
-                variant="outlined"
-                type="text"
-                name="wallet"
-                label="Enter Wallet"
+                {...FormField.wallet}
                 value={wallet}
-                onChange={(e) => setWallet(e.target.value)}
                 className={classes.root}
-                focused
+                onChange={(e) => setWallet(e.target.value)}
               />
             </Grid>
 
             <Grid item xs={12}>
               {paymentError ? (
-                <Link to="/">
-                  <MuiButton
-                    style={{
-                      marginRight: 15,
-                      backgroundColor: "#062863",
-                      fontWeight: 600,
-                      color: "#FFF",
-                      padding: "5px 15px",
-                    }}
-                    startIcon={<AttachMoney />}
-                  >
+                <Link to='/'>
+                  <MuiButton className='bold mui-btn proceed' startIcon={<AttachMoney />}>
                     Load Wallet
                   </MuiButton>
                 </Link>
               ) : (
                 <MuiButton
-                  style={{
-                    marginRight: 15,
-                    backgroundColor: "#062863",
-                    fontWeight: 600,
-                    color: "#FFF",
-                    padding: "5px 15px",
-                  }}
+                  className='bold mui-btn proceed'
                   onClick={() => setOpenAlert(true)}
                   startIcon={<Check />}
-                  disabled={ajoAmount === "" || wallet === ""}
-                >
+                  disabled={ajoAmount === '' || wallet === ''}>
                   Pay Ajo
                 </MuiButton>
               )}
 
               <MuiButton
-                style={{
-                  backgroundColor: "rgb(243, 62, 62)",
-                  fontWeight: 600,
-                  color: "#FFF",
-                  padding: "5px 15px",
-                }}
+                className='bold mui-btn cancel'
                 startIcon={<Close />}
-                onClick={() => setPayFormOpen(false)}
-              >
+                onClick={() => setPayFormOpen(false)}>
                 Cancel
               </MuiButton>
             </Grid>
@@ -134,9 +94,8 @@ export default function PaymentForm({
           open={openAlert}
           autoHideDuration={4000}
           onClose={handleClose}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        >
-          <Alert onClose={handleClose} severity="success">
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+          <Alert onClose={handleClose} severity='success'>
             Payment successful!
           </Alert>
         </Snackbar>

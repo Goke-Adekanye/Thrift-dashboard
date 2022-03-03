@@ -27,6 +27,20 @@ const FormField = {
     variant: 'outlined',
     fullWidth: 'fullWidth',
   },
+  amount: {
+    type: 'text',
+    name: 'amount',
+    label: 'Amount',
+    variant: 'outlined',
+    fullWidth: 'fullWidth',
+  },
+  wallet: {
+    type: 'text',
+    name: 'wallet',
+    label: 'Enter Wallet',
+    variant: 'outlined',
+    fullWidth: 'fullWidth',
+  },
   guarantor: {
     type: 'text',
     name: 'guarantor',

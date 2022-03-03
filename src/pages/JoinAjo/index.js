@@ -1,76 +1,42 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PageTitle from '../../components/pageTitle';
 import { userRows } from '../../dummyData';
+import Form from './_form';
 import PaymentForm from '../../components/paymentForm';
 import Loader from '../../components/loader';
 import UserListIcon from '../../components/userListIcon';
-import FormField from '../../components/formfields/Formfield';
 
 //MUI
 import { DataGrid } from '@material-ui/data-grid';
-import { Tooltip, TextField, Grid, makeStyles, Button as MuiButton } from '@material-ui/core';
-import { Checkbox } from '@mui/material';
-import { Close, Check, Visibility } from '@material-ui/icons';
+import { Tooltip } from '@material-ui/core';
+import { Visibility } from '@material-ui/icons';
 import { PeopleAlt } from '@mui/icons-material';
-
-const useStyles = makeStyles((theme) => ({
-  form: {
-    ...theme.form,
-  },
-  root: {
-    ...theme.root,
-  },
-  checkBox: {
-    ...theme.root,
-    display: 'flex',
-    alignItems: 'center',
-  },
-  tc: {
-    textDecoration: 'underline',
-  },
-}));
 
 export default function JoinAjo() {
   const walletAmount = 5000;
   const [loading, setLoading] = useState(false);
 
-  const classes = useStyles();
   const [data] = useState(userRows);
   const [formOpen, setFormOpen] = useState(null);
   const [payFormOpen, setPayFormOpen] = useState(false);
+  const [rowsState, setRowsState] = useState({
+    page: 0,
+    pageSize: 7,
+    rows: [],
+    loading: false,
+  });
 
-  //FORM1
-  const [firstName] = useState('James');
-  const [lastName] = useState('West');
-  const [email] = useState('jameswest@example.com');
-  const [phone] = useState('08095555578');
   //FORM2
   const [ajoAmount] = useState('5000');
   const [wallet, setWallet] = useState('');
 
   const paymentError = ajoAmount !== '' && ajoAmount > walletAmount;
 
-  const [checked, setChecked] = useState(false);
-
-  const handleCheck = (event) => {
-    setChecked(event.target.checked);
-  };
-
-  const handleInfooSubmit = () => {
-    setLoading(true);
-
-    setTimeout(() => {
-      setFormOpen('');
-      setLoading(false);
-      setPayFormOpen(true);
-    }, 3000);
-  };
-
   const Button = ({ type }) => {
     return <button className={'type-btn ' + type}>{type}</button>;
   };
 
-  const columns = [
+  const Columns = [
     {
       field: 'admin',
       headerName: 'Ajo Name',
@@ -127,100 +93,72 @@ export default function JoinAjo() {
     },
   ];
 
+  //  * Simulates server data loading
+  //Send to server from client:  and page number(page) and number of records on page(pageSize)
+  const loadServerRows = (page, pageSize) =>
+    //Send to client from server: records between from, to
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(data.slice(page * pageSize, (page + 1) * pageSize));
+      }, 1000); // simulate network latency
+    });
+
+  //useEffect
+  useEffect(() => {
+    let active = true;
+
+    (async () => {
+      setRowsState((prev) => ({ ...prev, loading: true }));
+      const newRows = await loadServerRows(rowsState.page, rowsState.pageSize);
+
+      if (!active) {
+        return;
+      }
+
+      setRowsState((prev) => ({ ...prev, loading: false, rows: newRows }));
+    })();
+
+    return () => {
+      active = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rowsState.page, rowsState.pageSize, data]);
+
   return (
     <>
       <div className='main-container flow '>
         <PageTitle text='Ajo List' />
 
         <DataGrid
+          rowsPerPageOptions={[7, 14]}
           autoHeight
-          rows={data}
           disableSelectionOnClick
-          columns={columns}
-          pageSize={7}
+          columns={Columns}
+          pagination
+          rowCount={data.length}
+          {...rowsState}
+          paginationMode='server'
+          onPageChange={(page) => setRowsState((prev) => ({ ...prev, page }))}
+          onPageSizeChange={(pageSize) => setRowsState((prev) => ({ ...prev, pageSize }))}
           className='box-shadow-2 border-radius-1'
         />
       </div>
 
       {formOpen && (
-        <div className='shade-container'>
-          <div className='inner flex flex-col flow flow--space-small'>
-            <div className='close-icon__container flex'>
-              <Close className='close-icon cursor-pointer' onClick={() => setFormOpen(null)} />
-            </div>
-
-            <form name='contact' method='POST' className='flex flex-col'>
-              <Grid container className={classes.form}>
-                <Grid item xs={12} className={classes.root}>
-                  <TextField {...FormField.firstname} value={firstName} />
-                </Grid>
-                <Grid item xs={12} className={classes.root}>
-                  <TextField {...FormField.lastname} value={lastName} />
-                </Grid>
-                <Grid item xs={12} className={classes.root}>
-                  <TextField {...FormField.email} value={email} />
-                </Grid>
-                <Grid item xs={12} className={classes.root}>
-                  <TextField {...FormField.phone} value={phone} />
-                </Grid>
-                <Grid item xs={12} className={classes.root}>
-                  <TextField {...FormField.guarantor} />
-                </Grid>
-                <Grid item xs={12} className={classes.checkBox}>
-                  <Checkbox
-                    checked={checked}
-                    onChange={handleCheck}
-                    inputProps={{ 'aria-label': 'controlled' }}
-                    sx={{
-                      color: '#062863',
-                      '&.Mui-checked': {
-                        color: '#062863',
-                      },
-                    }}
-                  />
-
-                  <span>
-                    I agree to the{' '}
-                    <a className={classes.tc} href='##' target='_blank' rel='noopener noreferrer'>
-                      Terms and Conditions
-                    </a>
-                  </span>
-                </Grid>
-
-                <Grid item xs={12}>
-                  <MuiButton
-                    className='bold mui-btn'
-                    style={{ marginRight: 15, backgroundColor: '#062863' }}
-                    onClick={handleInfooSubmit}
-                    disabled={!checked}
-                    startIcon={<Check />}>
-                    Apply
-                  </MuiButton>
-                  <MuiButton
-                    className='bold mui-btn'
-                    style={{ backgroundColor: 'rgb(243, 62, 62)' }}
-                    startIcon={<Close />}
-                    onClick={() => setFormOpen(null)}>
-                    Cancel
-                  </MuiButton>
-                </Grid>
-              </Grid>
-            </form>
-          </div>
-        </div>
+        <Form setFormOpen={setFormOpen} setPayFormOpen={setPayFormOpen} setLoading={setLoading} />
       )}
-
       {loading && <Loader />}
 
       {/* PAY AJO POPUP */}
-      <PaymentForm
-        payFormOpen={payFormOpen}
-        setPayFormOpen={setPayFormOpen}
-        wallet={wallet}
-        setWallet={setWallet}
-        paymentError={paymentError}
-        ajoAmount={ajoAmount}
-      />
+      {payFormOpen && (
+        <PaymentForm
+          setPayFormOpen={setPayFormOpen}
+          wallet={wallet}
+          setWallet={setWallet}
+          paymentError={paymentError}
+          ajoAmount={ajoAmount}
+        />
+      )}
       {/* END OF PAY AJO POPUP */}
     </>
   );
