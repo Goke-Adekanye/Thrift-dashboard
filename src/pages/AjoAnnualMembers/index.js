@@ -1,68 +1,59 @@
-import React, { useState } from "react";
-import PageTitle from "../../components/pageTitle";
-import { PeriodicalMembers } from "../../dummyData";
-import PaymentForm from "../../components/paymentForm";
-//MUI
-import { DataGrid } from "@material-ui/data-grid";
-import { Tooltip } from "@material-ui/core";
+import React, { useState } from 'react';
+import PageTitle from '../../components/pageTitle';
+import { PeriodicalMembers } from '../../dummyData';
+import PaymentForm from '../../components/paymentForm';
+import { useFetchList } from '../../hooks';
 
-export default function AjoAnnualMembers(props) {
+//MUI
+import { DataGrid } from '@material-ui/data-grid';
+import { Tooltip } from '@material-ui/core';
+
+export default function AjoAnnualMembers() {
   const [data] = useState(PeriodicalMembers);
+  const { rowsState, setRowsState } = useFetchList(data, 5);
 
   //FORM
-  const [ajoAmount] = useState("5000");
+  const [ajoAmount] = useState('5000');
   const [payFormOpen, setPayFormOpen] = useState(false);
-  const [wallet, setWallet] = useState("");
+  const [wallet, setWallet] = useState('');
 
   const walletAmount = 5000;
-  const paymentError = ajoAmount !== "" && ajoAmount > walletAmount;
+  const paymentError = ajoAmount !== '' && ajoAmount > walletAmount;
 
   const handleFormOpen = (id) => {
     setPayFormOpen(id);
-    console.log(id);
   };
 
-  const columns = [
-    { field: "id", headerName: "Nos", width: 110 },
+  const Columns = [
+    { field: 'id', headerName: 'Nos', width: 110 },
     {
-      field: "name",
-      headerName: "Member",
+      field: 'name',
+      headerName: 'Member',
       width: 140,
-      renderCell: (params) => {
-        return (
-          <div className="userListUser">
-            <h6 className="userListName">{params.row.name}</h6>
-          </div>
-        );
-      },
+      renderCell: (params) => <p className='bold'>{params.row.name}</p>,
     },
     {
-      field: "year",
-      headerName: "Year In View",
+      field: 'year',
+      headerName: 'Year In View',
       width: 165,
-      renderCell: (params) => {
-        return <div className="totalEstatesDiv">{params.row.year}</div>;
-      },
+      renderCell: (params) => <p className='margin-auto'>{params.row.year}</p>,
     },
     {
-      field: "frequency",
-      headerName: "Payment Frequency",
+      field: 'frequency',
+      headerName: 'Payment Frequency',
       width: 200,
-      renderCell: (params) => {
-        return <div className="totalEstatesDiv">{params.row.frequency}</div>;
-      },
+      renderCell: (params) => <p className='margin-auto'>{params.row.frequency}</p>,
     },
     {
-      field: "action",
-      headerName: "Action",
+      field: 'action',
+      headerName: 'Action',
       width: 150,
       renderCell: (params) => {
         return (
-          <Tooltip title="Pay" placement="top">
+          <Tooltip title='Pay' placement='top'>
             <button
-              className="userListEdit"
-              onClick={() => handleFormOpen(params.row.id)}
-            >
+              className='edit-btn cursor-pointer'
+              onClick={() => handleFormOpen(params.row.id)}>
               Make Payment
             </button>
           </Tooltip>
@@ -73,28 +64,33 @@ export default function AjoAnnualMembers(props) {
 
   return (
     <>
-      <div className="userList">
-        <PageTitle text="Ajo Members" />
+      <div className='main-container flow'>
+        <PageTitle text='Ajo Members' />
 
         <DataGrid
+          rowsPerPageOptions={[5, 10]}
           autoHeight
-          rows={data}
           disableSelectionOnClick
-          columns={columns}
-          pageSize={7}
-          checkboxSelection
-          className="muiTable"
+          columns={Columns}
+          pagination
+          rowCount={data.length}
+          {...rowsState}
+          paginationMode='server'
+          onPageChange={(page) => setRowsState((prev) => ({ ...prev, page }))}
+          onPageSizeChange={(pageSize) => setRowsState((prev) => ({ ...prev, pageSize }))}
+          className='box-shadow-2 border-radius-1'
         />
       </div>
 
-      <PaymentForm
-        payFormOpen={payFormOpen}
-        setPayFormOpen={setPayFormOpen}
-        wallet={wallet}
-        setWallet={setWallet}
-        paymentError={paymentError}
-        ajoAmount={ajoAmount}
-      />
+      {payFormOpen && (
+        <PaymentForm
+          setPayFormOpen={setPayFormOpen}
+          wallet={wallet}
+          setWallet={setWallet}
+          paymentError={paymentError}
+          ajoAmount={ajoAmount}
+        />
+      )}
     </>
   );
 }

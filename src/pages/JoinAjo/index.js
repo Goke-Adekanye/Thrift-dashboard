@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PageTitle from '../../components/pageTitle';
 import { userRows } from '../../dummyData';
 import Form from './_form';
 import PaymentForm from '../../components/paymentForm';
 import Loader from '../../components/loader';
 import UserListIcon from '../../components/userListIcon';
+import { useFetchList } from '../../hooks';
 
 //MUI
 import { DataGrid } from '@material-ui/data-grid';
@@ -13,18 +14,12 @@ import { Visibility } from '@material-ui/icons';
 import { PeopleAlt } from '@mui/icons-material';
 
 export default function JoinAjo() {
-  const walletAmount = 5000;
-  const [loading, setLoading] = useState(false);
-
   const [data] = useState(userRows);
+  const { rowsState, setRowsState } = useFetchList(data);
+  const [loading, setLoading] = useState(false);
   const [formOpen, setFormOpen] = useState(null);
   const [payFormOpen, setPayFormOpen] = useState(false);
-  const [rowsState, setRowsState] = useState({
-    page: 0,
-    pageSize: 7,
-    rows: [],
-    loading: false,
-  });
+  const walletAmount = 5000;
 
   //FORM2
   const [ajoAmount] = useState('5000');
@@ -93,40 +88,9 @@ export default function JoinAjo() {
     },
   ];
 
-  //  * Simulates server data loading
-  //Send to server from client:  and page number(page) and number of records on page(pageSize)
-  const loadServerRows = (page, pageSize) =>
-    //Send to client from server: records between from, to
-    new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(data.slice(page * pageSize, (page + 1) * pageSize));
-      }, 1000); // simulate network latency
-    });
-
-  //useEffect
-  useEffect(() => {
-    let active = true;
-
-    (async () => {
-      setRowsState((prev) => ({ ...prev, loading: true }));
-      const newRows = await loadServerRows(rowsState.page, rowsState.pageSize);
-
-      if (!active) {
-        return;
-      }
-
-      setRowsState((prev) => ({ ...prev, loading: false, rows: newRows }));
-    })();
-
-    return () => {
-      active = false;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rowsState.page, rowsState.pageSize, data]);
-
   return (
     <>
-      <div className='main-container flow '>
+      <div className='main-container flow'>
         <PageTitle text='Ajo List' />
 
         <DataGrid

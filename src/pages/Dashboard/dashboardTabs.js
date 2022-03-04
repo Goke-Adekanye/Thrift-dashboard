@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 //MUI
 import { Tab, Tabs, makeStyles, Tooltip } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
-import { useEffect } from 'react';
+import { useFetchList } from '../../hooks';
 
 const useStyles = makeStyles((theme) => ({
   tabs: {
@@ -19,24 +19,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DashboardTabs({ data }) {
-  const classes = useStyles();
   const [tabValue, setTabValue] = useState('all');
-  const [rowsState, setRowsState] = useState({
-    page: 0,
-    pageSize: 2,
-    rows: [],
-    loading: false,
-  });
+  const classes = useStyles();
 
+  let myData =
+    tabValue === 'credit'
+      ? data.filter((item) => item.type === 'credit')
+      : tabValue === 'debit'
+      ? data.filter((item) => item.type === 'debit')
+      : data;
+
+  const { rowsState, setRowsState } = useFetchList(myData, 2);
   // console.log(rowsState.rows);
-  let myData;
-  if (tabValue === 'all') {
-    myData = data;
-  } else if (tabValue === 'credit') {
-    myData = data.filter((item) => item.type === 'credit');
-  } else {
-    myData = data.filter((item) => item.type === 'debit');
-  }
 
   const Field = ({ field }) => {
     return (
@@ -88,37 +82,6 @@ export default function DashboardTabs({ data }) {
       },
     },
   ];
-
-  //  * Simulates server data loading
-  //Send to server from client:  and page number(page) and number of records on page(pageSize)
-  const loadServerRows = (page, pageSize) =>
-    //Send to client from server: records between from, to
-    new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(myData.slice(page * pageSize, (page + 1) * pageSize));
-      }, 1000); // simulate network latency
-    });
-
-  //useEffect
-  useEffect(() => {
-    let active = true;
-
-    (async () => {
-      setRowsState((prev) => ({ ...prev, loading: true }));
-      const newRows = await loadServerRows(rowsState.page, rowsState.pageSize);
-
-      if (!active) {
-        return;
-      }
-
-      setRowsState((prev) => ({ ...prev, loading: false, rows: newRows }));
-    })();
-
-    return () => {
-      active = false;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rowsState.page, rowsState.pageSize, data]);
 
   return (
     <div>
