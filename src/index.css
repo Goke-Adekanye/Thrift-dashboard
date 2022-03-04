@@ -8,11 +8,17 @@
   --clr-light-dark:  rgba(27, 27, 27, 0.75);
   --clr-white: #FFFFFF;
   --clr-gray: rgb(136, 133, 133);
+  --clr-light-gray: #e2e8f0; 
+  --clr-deep-gray: #2d3748; 
+  --clr-text-gray: #a0aec0; 
   --clr-light-green: #3bb077;
   --clr-fade-green: #e5faf2;
   --clr-deep-blue: #062863;
+  --clr-blue: #0d60d8;
   --clr-light-blue: #2a7ade;
   --clr-fade-blue: #ebf1fe;
+  --clr-span-blue: #2295f2;
+  --clr-border-blue: #083e9e;
   --clr-deep-red: rgb(243, 62, 62);
   --clr-light-red: #d95087;
   --clr-fade-red: #fff0f1;
@@ -179,6 +185,12 @@ select {
 .margin-auto {margin: auto;}
 
 .border-radius-1 {border-radius: 10px !important;}
+.border-radius-3s {    
+  border-bottom-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+.border-gray {border: 1px solid var(--clr-light-gray);}
 
 .box-shadow-1 {box-shadow: var(--light-box-shadow)}
 .box-shadow-2 {box-shadow: var(--deep-box-shadow)}
