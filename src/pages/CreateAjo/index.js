@@ -1,43 +1,16 @@
-import React, { useState } from "react";
-import "./CreateAjo.css";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import FormField from '../../components/formfields/Formfield';
+
 //MUI
-import {
-  Button,
-  Grid,
-  makeStyles,
-  Snackbar,
-  TextField,
-} from "@material-ui/core";
-import { Add, Check, Close } from "@material-ui/icons";
-import { Alert } from "@mui/material";
+import { Button, Grid, makeStyles, Snackbar, TextField } from '@material-ui/core';
+import { Add, Check, Close } from '@material-ui/icons';
+import { Alert } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
-  section: {
-    ...theme.section,
-    marginTop: 20,
-  },
-  container: {
-    ...theme.container,
-  },
   formTitle: {
     ...theme.formTitle,
-  },
-  icon: {
-    ...theme.icon,
-  },
-  formText: {
-    ...theme.formText,
-  },
-  form: {
-    ...theme.form,
-  },
-  label: {
-    ...theme.label,
-  },
-  uploadIcon: {
-    ...theme.uploadIcon,
   },
   root: {
     ...theme.root,
@@ -50,131 +23,78 @@ export default function AddAdmin() {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   //FORM FIELDS
-  const [category, setCategory] = useState(10);
-  const [categoryType, setCategoryType] = useState(10);
+  const [category, setCategory] = useState('default');
+  const [categoryType, setCategoryType] = useState('default');
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
-
     setOpenAlert(false);
   };
 
+  const Select = ({ category }) => {
+    return (
+      <Grid item xs={12} sm={6} lg={6}>
+        <select
+          value={categoryType}
+          onChange={(e) => setCategoryType(e.target.value)}
+          className='classic'>
+          <option value='default'>Select {category} Collection Type</option>
+          <option value='daily'>daily</option>
+          <option value='weekly'>weekly</option>
+          <option value='monthly'>monthly</option>
+        </select>
+      </Grid>
+    );
+  };
+
   return (
-    <section className={classes.section}>
-      <div className={classes.container}>
+    <section className='main-container'>
+      <div className='box-shadow-1 box-shadow-1'>
         <div className={classes.formTitle}>
-          <Add className={classes.titleIcon} />
-          <h1 className={classes.formText}>Create New Ajo</h1>
+          <Add />
+          <p className='fs-300 bold margin-left-1'>Create New Ajo</p>
         </div>
 
         {/* FORM  */}
-        <form name="contact" method="POST">
-          <Grid container spacing={4} className={classes.form}>
+        <form name='contact' method='POST'>
+          <Grid container spacing={4} className='padding-2'>
             <Grid item xs={12} sm={6} lg={6}>
-              <TextField
-                fullWidth
-                id="outlined-basic"
-                variant="outlined"
-                type="text"
-                name="ajoname"
-                label="Ajo Name"
-                className={classes.root}
-                focused
-              />
+              <TextField {...FormField.ajoname} className={classes.root} />
             </Grid>
             <Grid item xs={12} sm={6} lg={6}>
-              <TextField
-                fullWidth
-                id="outlined-basic"
-                variant="outlined"
-                type="text"
-                name="creatorsname"
-                label="Creators Name"
-                className={classes.root}
-                focused
-              />
+              <TextField {...FormField.creatorsname} className={classes.root} />
             </Grid>
             <Grid item xs={12} sm={6} lg={6}>
-              <TextField
-                fullWidth
-                id="outlined-basic"
-                variant="outlined"
-                type="email"
-                name="max"
-                label="Max Members"
-                className={classes.root}
-                focused
-              />
+              <TextField {...FormField.email} className={classes.root} />
             </Grid>
 
             <Grid item xs={12} sm={6} lg={6}>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="classic"
-              >
-                <option value={10}>Select Collection Category</option>
-                <option value="periodical">periodical</option>
-                <option value="annual">annual</option>
-                <option value="product">product</option>
+                className='classic'>
+                <option value='default'>Select Collection Category</option>
+                <option value='periodical'>periodical</option>
+                <option value='annual'>annual</option>
+                <option value='product'>product</option>
               </select>
             </Grid>
-            {category === "periodical" ? (
+            {category === 'periodical' ? (
+              <Select category={category} />
+            ) : category === 'annual' ? (
+              <Select category={category} />
+            ) : category === 'product' ? (
               <Grid item xs={12} sm={6} lg={6}>
-                <select
-                  value={categoryType}
-                  onChange={(e) => setCategoryType(e.target.value)}
-                  className="classic"
-                >
-                  <option value={10}>Select Periodical Collection Type</option>
-                  <option value="daily">daily</option>
-                  <option value="weekly">weekly</option>
-                  <option value="monthly">monthly</option>
-                </select>
-              </Grid>
-            ) : category === "annual" ? (
-              <Grid item xs={12} sm={6} lg={6}>
-                <select
-                  value={categoryType}
-                  onChange={(e) => setCategoryType(e.target.value)}
-                  className="classic"
-                >
-                  <option value={10}>Select Annual Collection Type</option>
-                  <option value="daily">daily</option>
-                  <option value="weekly">weekly</option>
-                  <option value="monthly">monthly</option>
-                </select>
-              </Grid>
-            ) : category === "product" ? (
-              <Grid item xs={12} sm={6} lg={6}>
-                <TextField
-                  fullWidth
-                  id="outlined-basic"
-                  variant="outlined"
-                  type="text"
-                  name="producttoshare"
-                  label="Enter Product"
-                  className={classes.root}
-                  focused
-                />
+                <TextField {...FormField.product} className={classes.root} />
               </Grid>
             ) : (
-              ""
+              ''
             )}
 
             <Grid item xs={12} sm={6} lg={6}>
-              <TextField
-                fullWidth
-                id="outlined-basic"
-                variant="outlined"
-                type="text"
-                name="amount"
-                label="Select Amount.. (e.g 5000)"
-                className={classes.root}
-                focused
-              />
+              <TextField {...FormField.amount} className={classes.root} />
             </Grid>
             <Grid item xs={12} sm={6} lg={6}>
               <DatePicker
@@ -185,33 +105,18 @@ export default function AddAdmin() {
                 onChange={(update) => {
                   setDateRange(update);
                 }}
-                placeholderText="Select duration"
+                placeholderText='Select duration'
               />
             </Grid>
 
             <Grid item xs={12} sm={12} lg={12}>
               <Button
-                style={{
-                  marginRight: 15,
-                  backgroundColor: "#062863",
-                  fontWeight: 600,
-                  color: "#FFF",
-                  padding: "5px 15px",
-                }}
+                className='bold mui-btn proceed'
                 onClick={() => setOpenAlert(true)}
-                startIcon={<Check />}
-              >
+                startIcon={<Check />}>
                 Create
               </Button>
-              <Button
-                style={{
-                  backgroundColor: "rgb(243, 62, 62)",
-                  fontWeight: 600,
-                  color: "#FFF",
-                  padding: "5px 15px",
-                }}
-                startIcon={<Close />}
-              >
+              <Button className='bold mui-btn cancel' startIcon={<Close />}>
                 Cancel
               </Button>
             </Grid>
@@ -224,9 +129,8 @@ export default function AddAdmin() {
         open={openAlert}
         autoHideDuration={4000}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      >
-        <Alert onClose={handleClose} severity="success">
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+        <Alert onClose={handleClose} severity='success'>
           Ajo created successfully!
         </Alert>
       </Snackbar>
