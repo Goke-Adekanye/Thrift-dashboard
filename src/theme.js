@@ -2,6 +2,9 @@ import { createTheme } from '@material-ui/core';
 
 export const theme = createTheme({
   //ADMIN FORM
+  form: {
+    padding: '1rem',
+  },
   formTitle: {
     height: '2.25rem',
     padding: '.6rem',
@@ -14,7 +17,7 @@ export const theme = createTheme({
     verticalAlign: 'middle',
   },
   root: {
-    marginBottom: '1rem',
+    marginBottom: '1.5rem',
 
     '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
       borderColor: '#555',

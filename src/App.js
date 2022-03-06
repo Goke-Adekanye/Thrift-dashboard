@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import './App.css';
 //PAGES
 import Dashboard from './pages/Dashboard';
 import JoinAjo from './pages/JoinAjo';

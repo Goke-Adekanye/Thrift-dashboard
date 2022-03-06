@@ -155,7 +155,7 @@ select {
 
 .align-justify__center {
   align-items: center;
-  justify-content: center;
+  justify-content: center !important;
 }
 
 .justify__space-between {
