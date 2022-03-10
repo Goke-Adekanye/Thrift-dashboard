@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import GridTable from '../../components/gridTable';
 //MUI
 import { Tab, Tabs, makeStyles, Tooltip } from '@material-ui/core';
-import { DataGrid } from '@material-ui/data-grid';
 import { useFetchList } from '../../hooks';
 
 const useStyles = makeStyles((theme) => ({
@@ -94,49 +94,7 @@ export default function DashboardTabs({ data }) {
         <Tab value='debit' label='debit' />
       </Tabs>
 
-      {tabValue === 'all' ? (
-        <DataGrid
-          rowsPerPageOptions={[2, 5, 10]}
-          autoHeight
-          disableSelectionOnClick
-          columns={Columns}
-          pagination
-          rowCount={myData.length}
-          {...rowsState}
-          paginationMode='server'
-          onPageChange={(page) => setRowsState((prev) => ({ ...prev, page }))}
-          onPageSizeChange={(pageSize) => setRowsState((prev) => ({ ...prev, pageSize }))}
-          className='box-shadow-2 border-radius-1'
-        />
-      ) : tabValue === 'credit' ? (
-        <DataGrid
-          rowsPerPageOptions={[2, 5, 10]}
-          autoHeight
-          disableSelectionOnClick
-          columns={Columns}
-          pagination
-          rowCount={myData.length}
-          {...rowsState}
-          paginationMode='server'
-          onPageChange={(page) => setRowsState((prev) => ({ ...prev, page }))}
-          onPageSizeChange={(pageSize) => setRowsState((prev) => ({ ...prev, pageSize }))}
-          className='box-shadow-2 border-radius-1'
-        />
-      ) : (
-        <DataGrid
-          rowsPerPageOptions={[2, 5, 10]}
-          autoHeight
-          disableSelectionOnClick
-          columns={Columns}
-          pagination
-          rowCount={myData.length}
-          {...rowsState}
-          paginationMode='server'
-          onPageChange={(page) => setRowsState((prev) => ({ ...prev, page }))}
-          onPageSizeChange={(pageSize) => setRowsState((prev) => ({ ...prev, pageSize }))}
-          className='box-shadow-2 border-radius-1'
-        />
-      )}
+      <GridTable data={data} rowsState={rowsState} setRowsState={setRowsState} Columns={Columns} />
     </div>
   );
 }

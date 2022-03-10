@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 const useFetchList = (data, size) => {
   const [rowsState, setRowsState] = useState({
     page: 0,
-    pageSize: size ? size : 7,
+    pageSize: size ? size : 5,
     rows: [],
     loading: false,
   });

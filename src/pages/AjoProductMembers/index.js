@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import PageTitle from '../../components/pageTitle';
 import { PeriodicalMembers } from '../../dummyData';
+import PageTitle from '../../components/pageTitle';
 import PaymentForm from '../../components/paymentForm';
+import GridTable from '../../components/gridTable';
 import { useFetchList } from '../../hooks';
 
 //MUI
 import { Tooltip } from '@material-ui/core';
-import { DataGrid } from '@material-ui/data-grid';
 
 export default function AjoProductMembers() {
   const [data] = useState(PeriodicalMembers);
@@ -70,21 +70,14 @@ export default function AjoProductMembers() {
 
   return (
     <>
-      <div className='userList'>
+      <div className='main-container flow'>
         <PageTitle text='Ajo Members' />
 
-        <DataGrid
-          rowsPerPageOptions={[5, 10]}
-          autoHeight
-          disableSelectionOnClick
-          columns={Columns}
-          pagination
-          rowCount={data.length}
-          {...rowsState}
-          paginationMode='server'
-          onPageChange={(page) => setRowsState((prev) => ({ ...prev, page }))}
-          onPageSizeChange={(pageSize) => setRowsState((prev) => ({ ...prev, pageSize }))}
-          className='box-shadow-2 border-radius-1'
+        <GridTable
+          data={data}
+          rowsState={rowsState}
+          setRowsState={setRowsState}
+          Columns={Columns}
         />
       </div>
 

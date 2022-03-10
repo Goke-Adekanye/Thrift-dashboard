@@ -5,10 +5,10 @@ import Form from './_form';
 import PaymentForm from '../../components/paymentForm';
 import Loader from '../../components/loader';
 import UserListIcon from '../../components/userListIcon';
+import GridTable from '../../components/gridTable';
 import { useFetchList } from '../../hooks';
 
 //MUI
-import { DataGrid } from '@material-ui/data-grid';
 import { Tooltip } from '@material-ui/core';
 import { Visibility } from '@material-ui/icons';
 import { PeopleAlt } from '@mui/icons-material';
@@ -93,18 +93,11 @@ export default function JoinAjo() {
       <div className='main-container flow'>
         <PageTitle text='Ajo List' />
 
-        <DataGrid
-          rowsPerPageOptions={[7, 14]}
-          autoHeight
-          disableSelectionOnClick
-          columns={Columns}
-          pagination
-          rowCount={data.length}
-          {...rowsState}
-          paginationMode='server'
-          onPageChange={(page) => setRowsState((prev) => ({ ...prev, page }))}
-          onPageSizeChange={(pageSize) => setRowsState((prev) => ({ ...prev, pageSize }))}
-          className='box-shadow-2 border-radius-1'
+        <GridTable
+          data={data}
+          rowsState={rowsState}
+          setRowsState={setRowsState}
+          Columns={Columns}
         />
       </div>
 
